@@ -10,5 +10,7 @@ Be aware, that you need to either set a **GitHub Secret** for AZURE_CREDENTIALS 
 When deploying to **Tenant level**, you need to set **proper permission**. To do so, use
 
 `New-AzRoleAssignment -SignInName "[userId]" -Scope "/" -RoleDefinitionName "Owner"`
-                or
+
+or
+
 `az role assignment create --role "Owner" --assignee "[userId]" --scope "/"`

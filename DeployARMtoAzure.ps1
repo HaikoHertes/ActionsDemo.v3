@@ -1,9 +1,16 @@
 ﻿<#
     .DESCRIPTION
         This Script deploys ARM templates to Microsoft Azure from a given folder structure via PowerShell
-        Attention: To run properly, it needs the Az Module for PowerShell, at leat in Version 4.2.0
+        Attention: To run properly, it needs the Az Module for PowerShell, at leat in Version 4.1.0
         To install it, run 
-            Install-Module -Name Az -AllowClobber -MinimumVersion 4.2.0
+            Install-Module -Name Az -AllowClobber -MinimumVersion 4.1.0
+        Be aware, that you need to either set a GitHub Secret for AZURE_CREDENTIALS when using GitHub Actions or use Connect-AzAccount when using the script without GitHub Actions
+        When deploying to Tenant level, you need to set proper permission. To do so, use
+            New-AzRoleAssignment -SignInName "[userId]" -Scope "/" -RoleDefinitionName "Owner"
+                or
+            az role assignment create --role "Owner" --assignee "[userId]" --scope "/"
+
+
     .NOTES
         AUTHOR: Haiko Hertes
                 Microsoft MVP & Azure Architect

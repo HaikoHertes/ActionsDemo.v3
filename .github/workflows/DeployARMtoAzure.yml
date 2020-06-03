@@ -23,7 +23,6 @@ jobs:
       uses: azure/powershell@v1
       with:
         inlineScript: |
-          Set-AzContext -SubscriptionId ${{secrets.SUBSCRIPTION_ID}};
           $command = “./DeployARMtoAzure.ps1";
           Invoke-Expression $command;
         azPSVersion: '4.1.0'

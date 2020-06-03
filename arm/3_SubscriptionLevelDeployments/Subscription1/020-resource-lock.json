@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "rgName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the resourceGroup to create"
+      }
+    }
+  },
+  "variables": { },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-09-01",
+      "name": "applyLock",
+      "resourceGroup": "[parameters('rgName')]",
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": [
+            {
+              "name": "DontDelete",
+              "type": "Microsoft.Authorization/locks",
+              "apiVersion": "2017-04-01",
+              "properties": {
+                "level": "CanNotDelete",
+                "notes": "Prevent deletion of the resourceGroup"
+              }
+            }        
+          ]
+        }
+      }
+    }
+  ]
+}

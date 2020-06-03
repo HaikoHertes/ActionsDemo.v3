@@ -1,0 +1,1 @@
+As New-AzResourceGroupDeployment does not allow to use a location parameter, location must be allways handled in the template for RG level subscriptions!

@@ -1,33 +1,30 @@
-# This is a basic workflow to help you get started with Actions
+name: DeployARMtoAzure
 
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  deploy:
+    runs-on: ubuntu-20.04
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
-
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    
+    - name: Login via Az module
+      uses: azure/login@v1.1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+        enable-AzPSSession: true
+    
+    - name: Checkout Source Code
+      uses: actions/checkout@v2
+        
+    - name: Run Azure PowerShell script DeployARMtoAzure.ps1
+      uses: azure/powershell@v1
+      with:
+        inlineScript: |
+          Set-AzContext -SubscriptionId ${{secrets.SUBSCRIPTION_ID}};
+          $command = “./DeployARMtoAzure.ps1";
+          Invoke-Expression $command;
+        azPSVersion: '4.1.0'
+        #AzPS 4.1.0 is needed to set Tags on the Deployments; AzPS 4.1.0 needs Ubuntu-20.04

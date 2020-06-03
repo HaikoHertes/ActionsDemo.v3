@@ -1,0 +1,2 @@
+The deployment script checks for the existance of a "scope.txt" file in every folder.If such file exists, the ID or Name given in the file will be used as the scope for the deployment(s). If such a file does not exist, the foldername where the template resides will be used as the scopes name.
+Make sure you only use the scopes as they are defined here at the top level (i.e. don't put Resource Groups as scopes under SubscriptionLevelDeployments folder.

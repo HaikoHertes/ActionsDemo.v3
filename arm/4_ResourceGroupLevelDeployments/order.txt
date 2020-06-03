@@ -1,0 +1,7 @@
+# This file defines the sorting and therefor the deployment order of all subfolders and files
+# There are these options
+#
+# SortByFolderName = Sorting by foldernames and then by filenames (default)
+# SortByFileName = Folder names are ignored, sorting just by templates filenames
+#
+SortByFolderName

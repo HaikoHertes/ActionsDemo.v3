@@ -1,0 +1,2 @@
+# This file defines the scope to be used - either use scope ID or name
+hertes.net

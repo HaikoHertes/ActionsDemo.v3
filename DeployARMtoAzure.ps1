@@ -9,6 +9,8 @@
             New-AzRoleAssignment -SignInName "[userId]" -Scope "/" -RoleDefinitionName "Owner"
                 or
             az role assignment create --role "Owner" --assignee "[userId]" --scope "/"
+			
+		A more detailed description and explanations can be found here: https://www.hertes.net/2020/06/deploy-multiple-arm-templates-to-azure-using-powershell-and-github-actions/
 
 
     .NOTES

@@ -15,6 +15,8 @@ or
 
 `az role assignment create --role "Owner" --assignee "[userId]" --scope "/"`
 
+For a detailed explanation on how to use the script and stuff, visit https://www.hertes.net/2020/06/deploy-multiple-arm-templates-to-azure-using-powershell-and-github-actions/
+
 
 **Copyright 2020 Haiko Hertes**
 

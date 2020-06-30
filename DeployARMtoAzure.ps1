@@ -1,4 +1,4 @@
-﻿<#
+<#
     .DESCRIPTION
         This Script deploys ARM templates to Microsoft Azure from a given folder structure via PowerShell
         Attention: To run properly, it needs the Az Module for PowerShell, at leat in Version 4.1.0
@@ -12,6 +12,7 @@
 			
 		A more detailed description and explanations can be found here: https://www.hertes.net/2020/06/deploy-multiple-arm-templates-to-azure-using-powershell-and-github-actions/
 
+	As this script is intended to be used with GitHub actions, there is no login to Azure in here. If you are going to use the script without GitHub Actions, do something like "Connect-AzAccount" right after the last function declaration.
 
     .NOTES
         AUTHOR: Haiko Hertes
@@ -127,13 +128,24 @@ else
         {
             $Tags = Get-Content "$($template.DirectoryName)\tags.txt" -Raw | ConvertFrom-StringData
             Write-Host "    Found and loaded Tags."
-            # Starting the deployment            Write-Host "    Deploying $($template.Name)..."            $AzTenantDeployment = New-AzTenantDeployment `                -Name ($template.Basename) `                -Location $Location `                -TemplateFile $template.FullName `                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json" `
+            # Starting the deployment
+            Write-Host "    Deploying $($template.Name)..."
+            $AzTenantDeployment = New-AzTenantDeployment `
+                -Name ($template.Basename) `
+                -Location $Location `
+                -TemplateFile $template.FullName `
+                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json" `
                 -Tag $Tags
         }
         else
         {
             # Deployment without Tags
-            Write-Host "    Deploying $($template.Name)..."            $AzTenantDeployment = New-AzTenantDeployment `                -Name ($template.Basename) `                -Location $Location `                -TemplateFile $template.FullName `                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json"
+            Write-Host "    Deploying $($template.Name)..."
+            $AzTenantDeployment = New-AzTenantDeployment `
+                -Name ($template.Basename) `
+                -Location $Location `
+                -TemplateFile $template.FullName `
+                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json"
         }
     }
     Write-Host ">>> Done with the Tenant Level Deployments."
@@ -193,15 +205,26 @@ else
         {
             $Tags = Get-Content "$($template.DirectoryName)\tags.txt" -Raw | ConvertFrom-StringData
             Write-Host "    Found and loaded Tags."
-            # Starting the deployment            Write-Host "    Deploying $($template.Name)..."            $AzManagementGroupDeployment = New-AzManagementGroupDeployment `                -Name ($template.Basename) `                -ManagementGroupId $Scope `                -Location $Location `
+            # Starting the deployment
+            Write-Host "    Deploying $($template.Name)..."
+            $AzManagementGroupDeployment = New-AzManagementGroupDeployment `
+                -Name ($template.Basename) `
+                -ManagementGroupId $Scope `
+                -Location $Location `
                 -Tag $Tags `
-                -TemplateFile $template.FullName `                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json"
+                -TemplateFile $template.FullName `
+                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json"
         }
         else
         {
             # Deployment without Tags
-            Write-Host "    Deploying $($template.Name)..."            $AzManagementGroupDeployment = New-AzManagementGroupDeployment `                -Name ($template.Basename) `                -ManagementGroupId $Scope `                -Location $Location `
-                -TemplateFile $template.FullName `                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json"
+            Write-Host "    Deploying $($template.Name)..."
+            $AzManagementGroupDeployment = New-AzManagementGroupDeployment `
+                -Name ($template.Basename) `
+                -ManagementGroupId $Scope `
+                -Location $Location `
+                -TemplateFile $template.FullName `
+                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json"
         }
     }
     Write-Host ">>> Done with the Management Group Level Deployments."
@@ -265,13 +288,24 @@ else
         {
             $Tags = Get-Content "$($template.DirectoryName)\tags.txt" -Raw | ConvertFrom-StringData
             Write-Host "    Found and loaded Tags."
-            # Starting the deployment            Write-Host "    Deploying $($template.Name)..."            $AzSubscriptionDeployment = New-AzSubscriptionDeployment `                -Name ($template.Basename) `                -Location $Location `                -TemplateFile $template.FullName `                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json" `
+            # Starting the deployment
+            Write-Host "    Deploying $($template.Name)..."
+            $AzSubscriptionDeployment = New-AzSubscriptionDeployment `
+                -Name ($template.Basename) `
+                -Location $Location `
+                -TemplateFile $template.FullName `
+                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json" `
                 -Tag $Tags
         }
         else
         {
             # Deployment without Tags
-            Write-Host "    Deploying $($template.Name)..."            $AzSubscriptionDeployment = New-AzSubscriptionDeployment `                -Name ($template.Basename) `                -Location $Location `                -TemplateFile $template.FullName `                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json"
+            Write-Host "    Deploying $($template.Name)..."
+            $AzSubscriptionDeployment = New-AzSubscriptionDeployment `
+                -Name ($template.Basename) `
+                -Location $Location `
+                -TemplateFile $template.FullName `
+                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json"
         }
     }
     Write-Host ">>> Done with the Subscription Level Deployments."
@@ -331,13 +365,24 @@ else
         {
             $Tags = Get-Content "$($template.DirectoryName)\tags.txt" -Raw | ConvertFrom-StringData
             Write-Host "    Found and loaded Tags."
-            # Starting the deployment            Write-Host "    Deploying $($template.Name)..."            $AzResourceGroupDeployment = New-AzResourceGroupDeployment `                -Name ($template.Basename) `                -ResourceGroupName $Scope `                -TemplateFile $template.FullName `                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json" `
+            # Starting the deployment
+            Write-Host "    Deploying $($template.Name)..."
+            $AzResourceGroupDeployment = New-AzResourceGroupDeployment `
+                -Name ($template.Basename) `
+                -ResourceGroupName $Scope `
+                -TemplateFile $template.FullName `
+                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json" `
                 -Tag $Tags
         }
         else
         {
             # Deployment without Tags
-            Write-Host "    Deploying $($template.Name)..."            $AzResourceGroupDeployment = New-AzResourceGroupDeployment `                -Name ($template.Basename) `                -ResourceGroupName $Scope `                -TemplateFile $template.FullName `                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json"
+            Write-Host "    Deploying $($template.Name)..."
+            $AzResourceGroupDeployment = New-AzResourceGroupDeployment `
+                -Name ($template.Basename) `
+                -ResourceGroupName $Scope `
+                -TemplateFile $template.FullName `
+                -TemplateParameterFile "$($template.DirectoryName)\$($template.BaseName).parameters.json"
         }
     }
     Write-Host ">>> Done with the Resource Group Level Deployments."
